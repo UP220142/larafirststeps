@@ -4,7 +4,6 @@ namespace App\Http\Controllers\DashBoard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Post;
 
 class PostController extends Controller
@@ -15,11 +14,9 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::find(1);
-        
-        $post->delete();
 
 
-
+        // ->delete();
 
         // $post->update(
         //     [
