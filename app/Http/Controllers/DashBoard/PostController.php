@@ -31,41 +31,38 @@ class PostController extends Controller
 
         // dd($post);
 
-        
-        return 'Index';
-        }
-        
-        /**
-         * Show the form for creating a new resource.
-        */
-        public function create()
-        {
-            $categories = Category::pluck('id', 'title');
-            return view('dashboard.post.create', compact('categories'));
-            }
-            
-            /**
-             * Store a newly created resource in storage.
-            */
-            public function store(Request $request)
-            {
-            
-                Post::create($request->all());
 
-                // Post::create(
-                //     [
-                //         'title' => $request->all()['title'],
-                //         'slug' => $request->all()['slug'],
-                //         'content' => $request->all()['content'],
-                //         'category_id' => $request->all()['category_id'],
-                //         'description' => $request->all()['description'],
-                // //         'posted777' => $request->all()['posted']
-                // //     ]
-                // // );
-                 return to_route('post.index');
-                
-                }
-                
+        return 'Index';
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $categories = Category::pluck('title', 'id');
+        return view('dashboard.post.create', compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'title' => 'required|min:5|min:255',
+            'slug' => 'required|min:5|min:255',
+            'content' => 'required|min:7',
+            'category_id' => 'required|integer',
+            'desciption' => 'required|min:7',
+            'posted' => 'required',
+        ]);
+
+        Post::create($request->all());
+        return to_route('post.index');
+    }
+
     /**
      * Display the specified resource.
      */
