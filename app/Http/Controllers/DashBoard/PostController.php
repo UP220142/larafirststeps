@@ -17,9 +17,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::find(1);
+        $posts = Post::get();
 
-        return 'Index';
+        return view('dashboard.post.index', compact('posts'));
     }
 
     /**
@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('id', 'title');
+        $categories = Category::pluck('title', 'id');
         return view('dashboard.post.create', compact('categories'));
     }
 
