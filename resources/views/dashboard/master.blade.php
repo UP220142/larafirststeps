@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <div class="realG mt-5">Diablaso</div>
+        Real G
     </header>
 
     @yield('content')

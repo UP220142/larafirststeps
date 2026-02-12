@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\DashBoard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\StoreRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,22 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        // $post = Post::find(1);
-
-
-        // ->delete();
-
-        // $post->update(
-        //     [
-        //         'title' => 'test title new',
-        //         'slug' => 'test slug',
-        //         'content' => 'test content',
-        //         'image' => 'test image',
-        //     ]
-        // );
-
-        // dd($post);
-
+        $post = Post::find(1);
 
         return 'Index';
     }
@@ -41,44 +27,18 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('title', 'id');
+        $categories = Category::pluck('id', 'title');
         return view('dashboard.post.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
+        Post::create($request->validated());
 
-
-        $validated = Validator::make(
-            $request->all(),
-            [
-                'title' => 'required|min:5|max:255',
-                'slug' => 'required|min:5|max:255',
-                'content' => 'required|min:7',
-                'category_id' => 'required|integer',
-                'desciption' => 'required|min:7',
-                'posted' => 'required',
-            ]
-        );
-
-        dd($validated->fails());
-
-
-
-        // $request->validate([
-        //     'title' => 'required|min:5|max:255',
-        //     'slug' => 'required|min:5|max:255',
-        //     'content' => 'required|min:7',
-        //     'category_id' => 'required|integer',
-        //     'desciption' => 'required|min:7',
-        //     'posted' => 'required',
-        // ]);
-
-        // Post::create($request->all());
-        // return to_route('post.index');
+        return to_route('post.index');
     }
 
     /**
