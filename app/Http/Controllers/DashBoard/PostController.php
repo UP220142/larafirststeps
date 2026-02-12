@@ -5,6 +5,7 @@ namespace App\Http\Controllers\DashBoard;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Post;
 
@@ -50,17 +51,34 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'title' => 'required|min:5|min:255',
-            'slug' => 'required|min:5|min:255',
-            'content' => 'required|min:7',
-            'category_id' => 'required|integer',
-            'desciption' => 'required|min:7',
-            'posted' => 'required',
-        ]);
 
-        Post::create($request->all());
-        return to_route('post.index');
+        $validated = Validator::make(
+            $request->all(),
+            [
+                'title' => 'required|min:5|max:255',
+                'slug' => 'required|min:5|max:255',
+                'content' => 'required|min:7',
+                'category_id' => 'required|integer',
+                'desciption' => 'required|min:7',
+                'posted' => 'required',
+            ]
+        );
+
+        dd($validated->fails());
+
+
+
+        // $request->validate([
+        //     'title' => 'required|min:5|max:255',
+        //     'slug' => 'required|min:5|max:255',
+        //     'content' => 'required|min:7',
+        //     'category_id' => 'required|integer',
+        //     'desciption' => 'required|min:7',
+        //     'posted' => 'required',
+        // ]);
+
+        // Post::create($request->all());
+        // return to_route('post.index');
     }
 
     /**
