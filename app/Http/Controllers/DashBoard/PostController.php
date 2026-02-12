@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\DashBoard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+
 use App\Models\Post;
 
 class PostController extends Controller
@@ -13,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::find(1);
+        // $post = Post::find(1);
 
 
         // ->delete();
@@ -29,37 +31,41 @@ class PostController extends Controller
 
         // dd($post);
 
-        // Post::create(
-        //     [
-        //         'title' => 'test title',
-        //         'slug' => 'test slug',
-        //         'content' => 'test content',
-        //         'category_id' => 1,
-        //         'description' => 'description',
-        //         'posted' => 'not',
-        //         'image' => 'test image',
-        //     ]
-        // );
-
+        
         return 'Index';
-    }
+        }
+        
+        /**
+         * Show the form for creating a new resource.
+        */
+        public function create()
+        {
+            $categories = Category::pluck('id', 'title');
+            return view('dashboard.post.create', compact('categories'));
+            }
+            
+            /**
+             * Store a newly created resource in storage.
+            */
+            public function store(Request $request)
+            {
+            
+                Post::create($request->all());
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+                // Post::create(
+                //     [
+                //         'title' => $request->all()['title'],
+                //         'slug' => $request->all()['slug'],
+                //         'content' => $request->all()['content'],
+                //         'category_id' => $request->all()['category_id'],
+                //         'description' => $request->all()['description'],
+                // //         'posted777' => $request->all()['posted']
+                // //     ]
+                // // );
+                 return to_route('post.index');
+                
+                }
+                
     /**
      * Display the specified resource.
      */
