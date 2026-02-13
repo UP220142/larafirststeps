@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::paginate(10);
 
         return view('dashboard.post.index', compact('posts'));
     }
@@ -28,6 +28,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::pluck('title', 'id');
+        $post = new Post();
         return view('dashboard.post.create', compact('categories'));
     }
 
@@ -54,15 +55,18 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::pluck('title', 'id');
+        return view('dashboard.post.edit', compact('post', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(StoreRequest $request, Post $post)
     {
-        //
+        $post->update($request->validated());
+
+        return to_route('post.index');
     }
 
     /**
@@ -70,6 +74,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return to_route('post.index');
     }
 }

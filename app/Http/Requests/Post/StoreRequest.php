@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -23,11 +24,16 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:255',
-            'slug' => 'required|min:5|max:255|unique:posts',
+            'slug' => [
+                'required',
+                'min:5',
+                'max:255',
+                Rule::unique('posts')->ignore($this->route('post'))
+            ],
             'content' => 'required|min:7',
             'category_id' => 'required|integer',
             'description' => 'required|min:7',
-            'posted' => 'required',
+            'posted' => 'required|in:yes,not',
         ];
     }
 }

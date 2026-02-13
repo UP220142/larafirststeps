@@ -2,9 +2,9 @@
 
 @section('content')
     @include('dashboard/fragment/errors-form')
-    <h1>Crear Post</h1>
+    <h1>Editar Post</h1>
 
-    <form action="{{ route('post.store') }}" method="post">
+    <form action="{{ route('post.update', $post->id) }}" method="POST">
         @include('dashboard.post._form')
     </form>
 @endsection
