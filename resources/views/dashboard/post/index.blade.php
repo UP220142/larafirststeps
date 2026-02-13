@@ -32,8 +32,11 @@
                         {{ $post->category->title }}
                     </td>
                     <td>
+                        
                         <a href="{{ route('post.edit', $post->id) }}">Editar</a>
                         
+                        <a href="{{ route('post.show', $post->id) }}">Mostrar</a>
+
                         <form action="{{ route('post.destroy', $post->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
