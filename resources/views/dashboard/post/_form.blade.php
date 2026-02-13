@@ -48,4 +48,9 @@
     <small>{{ $message }}</small>
 @enderror
 
+@if (isset($task) && $task == 'edit')
+<label for="">Image</label>
+    <input type="file" name="image">
+@endif
+
 <button type="submit">{{ isset($post->id) ? 'Update' : 'Send' }}</button>

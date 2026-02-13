@@ -64,8 +64,15 @@ class PostController extends Controller
      */
     public function update(StoreRequest $request, Post $post)
     {
-        $post->update($request->validated());
+        $data = $request->validated();
+        // dd($request->image);
 
+        if (isset($data['image'])) {
+
+            $data['image'] = $fillname = time() . '.' . $data['image']->extension();
+            $request->image->move(public_path('upload/posts'), $fillname);
+        }
+        $post->update($data);
         return to_route('post.index');
     }
 
