@@ -1,12 +1,19 @@
 <?php
 
-use App\Http\Controllers\DashBoard\PostController;
-use App\Http\Controllers\DashBoard\CategoryController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\DashBoard\CategoryController;
+use App\Http\Controllers\DashBoard\PostController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('post', PostController::class);
-Route::resource('category', CategoryController::class);
+Route::group(['prefix' => 'dashboard'], function () {
+
+    Route::resources([
+        'post' => PostController::class,
+        'category' => CategoryController::class,
+    ])
+
+});
