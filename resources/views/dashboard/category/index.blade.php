@@ -3,7 +3,7 @@
 @section('content')
     <h1>Category Index</h1>
 
-    <a href="{{route('category.create')}}">Crear Categoría</a>
+    <a href="{{ route('category.create') }}">Crear Categoría</a>
 
     <table>
         <thead>
