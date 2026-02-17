@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 Route::middleware([App\Http\Middleware\TestMiddleware::class])->group(function () 
 {
-    Route::get('/test/{id}', function ($id= 10) {
+    Route::get('/test/{id?}', function ($id= 10) {
     echo $id;
     });
 });
