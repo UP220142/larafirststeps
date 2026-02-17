@@ -10,10 +10,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([App\Http\Middleware\TestMiddleware::class])->group(function () 
-{
-    Route::get('/test/{id?}', function ($id= 10) {
-    echo $id;
+Route::middleware([App\Http\Middleware\TestMiddleware::class])->group(function () {
+    Route::get('/test/{id}', function ($id= 10) {
+        echo $id;
     });
 });
 
